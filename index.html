@@ -13,7 +13,7 @@
   font-family:Segoe UI, sans-serif;
 }
 
-/* ---------- LOGIN PAGE (ONLY PLACE WITH BG IMAGE) ---------- */
+/* ---------- LOGIN PAGE ---------- */
 body{
   min-height:100vh;
   background:url("bg.png") center/cover no-repeat;
@@ -53,7 +53,7 @@ body{
   cursor:pointer;
 }
 
-/* ---------- SURPRISE PAGE (LOVE THEME BG) ---------- */
+/* ---------- SURPRISE PAGE ---------- */
 #surprise{
   position:fixed;
   inset:0;
@@ -64,7 +64,7 @@ body{
   align-items:center;
 }
 
-/* ---------- PHOTO ---------- */
+/* ---------- SLIDES ---------- */
 #photo-box{
   width:90%;
   max-width:420px;
@@ -82,13 +82,11 @@ body{
   box-shadow:0 20px 40px rgba(0,0,0,.3);
 }
 
-/* ---------- TEXT ---------- */
 #wish{
   margin-top:15px;
   font-size:18px;
-  color:#fff;
+  color:white;
   text-align:center;
-  text-shadow:0 2px 6px rgba(0,0,0,.4);
 }
 
 /* ---------- BUTTON ---------- */
@@ -131,13 +129,28 @@ body{
 
 #letterBox{
   background:white;
-  max-width:400px;
-  padding:25px;
-  border-radius:22px;
+  max-width:380px;
+  padding:22px;
+  border-radius:26px;
+  text-align:center;
+  box-shadow:0 20px 40px rgba(0,0,0,.3);
+}
+
+/* 💖 HER PHOTO */
+#herPhoto{
+  width:120px;
+  height:120px;
+  object-fit:cover;
+  border-radius:50%;
+  margin-bottom:15px;
+  box-shadow:0 8px 20px rgba(0,0,0,.25);
+}
+
+/* LETTER TEXT */
+#letterText{
   font-size:15px;
   line-height:1.7;
   white-space:pre-line;
-  box-shadow:0 20px 40px rgba(0,0,0,.3);
 }
 </style>
 </head>
@@ -161,48 +174,50 @@ body{
   <div id="wish">Happy Birthday My Love 🎂💖</div>
   <button id="startBtn" onclick="startSurprise()">Start Surprise 🎁</button>
 
-  <!-- AUDIO -->
   <audio id="audio1" preload="auto"></audio>
   <audio id="audio2" preload="auto"></audio>
 </div>
 
 <!-- LOVE LETTER -->
 <div id="letter">
-  <div id="letterBox"></div>
+  <div id="letterBox">
+    <!-- HER PHOTO -->
+    <img src="her.jpg" id="herPhoto">
+
+    <!-- LETTER TEXT -->
+    <div id="letterText"></div>
+  </div>
 </div>
 
 <script>
-/* LOGIN */
 const USERNAME = "Ashok";
 const PASSWORD = "Pattu";
 
-/* IMAGES */
 const photos = [
   "img1.jpg","img2.jpg","img3.jpg","img4.jpg","img5.jpg",
   "img6.jpg","img7.jpg","img8.jpg","img9.jpg","img10.jpg"
 ];
 
-/* SONGS */
 const songs = ["song1.mp3","song2.mp3"];
 
-/* LOVE LETTER */
 const loveLetter =
 `My Love 💌,
 
-From the moment you came into my life,
-everything felt warmer and brighter.
+This smile,
+this face,
+this heart —
+is my favorite place.
 
-Every photo you saw is a memory,
-every memory is a feeling,
-and every feeling is you.
+Every moment with you
+feels like home.
 
 Nammaloda struggle elame sikram solve aagi
 na unna sikram marraige paniduven pondatii
 I love youuuu so much ❤️🫂🫶🏻
+
 Happy Birthday ❤️ Pattu
 Forever yours.`;
 
-/* AUDIO SYSTEM */
 const audios = [
   document.getElementById("audio1"),
   document.getElementById("audio2")
@@ -262,7 +277,7 @@ function playSong(){
 
 /* HEARTS */
 function createHeart(){
-  const h = document.createElement("div");
+  const h=document.createElement("div");
   h.className="heart";
   h.innerText="❤️";
   h.style.left=Math.random()*100+"vw";
@@ -275,10 +290,14 @@ function showLetter(){
   clearInterval(slideTimer);
   surprise.style.display="none";
   letter.style.display="flex";
+  typeLetter();
+}
+
+function typeLetter(){
   let i=0;
-  letterBox.innerHTML="";
+  letterText.innerHTML="";
   const t=setInterval(()=>{
-    letterBox.innerHTML+=loveLetter.charAt(i++);
+    letterText.innerHTML+=loveLetter.charAt(i++);
     if(i>=loveLetter.length) clearInterval(t);
   },40);
 }
