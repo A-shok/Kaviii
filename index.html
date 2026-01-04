@@ -64,7 +64,7 @@ body{
   align-items:center;
 }
 
-/* ---------- SLIDES ---------- */
+/* ---------- PHOTO ---------- */
 #photo-box{
   width:90%;
   max-width:420px;
@@ -78,15 +78,20 @@ body{
   width:100%;
   height:100%;
   object-fit:contain;
-  border-radius:20px;
+  border-radius:22px;
   box-shadow:0 20px 40px rgba(0,0,0,.3);
 }
 
+/* ---------- TEXT ---------- */
 #wish{
   margin-top:15px;
-  font-size:18px;
-  color:white;
+  font-size:20px;
+  color:black; /* BLACK TEXT */
   text-align:center;
+  font-weight:600;
+  text-shadow:
+    0 0 6px rgba(255,255,255,0.8),
+    0 0 12px rgba(255,182,193,0.9); /* GLOW */
 }
 
 /* ---------- BUTTON ---------- */
@@ -136,7 +141,7 @@ body{
   box-shadow:0 20px 40px rgba(0,0,0,.3);
 }
 
-/* 💖 HER PHOTO */
+/* HER PHOTO IN LETTER */
 #herPhoto{
   width:120px;
   height:120px;
@@ -171,7 +176,9 @@ body{
   <div id="photo-box">
     <img id="photo">
   </div>
+
   <div id="wish">Happy Birthday My Love 🎂💖</div>
+
   <button id="startBtn" onclick="startSurprise()">Start Surprise 🎁</button>
 
   <audio id="audio1" preload="auto"></audio>
@@ -181,10 +188,7 @@ body{
 <!-- LOVE LETTER -->
 <div id="letter">
   <div id="letterBox">
-    <!-- HER PHOTO -->
     <img src="her.jpg" id="herPhoto">
-
-    <!-- LETTER TEXT -->
     <div id="letterText"></div>
   </div>
 </div>
@@ -193,7 +197,9 @@ body{
 const USERNAME = "Ashok";
 const PASSWORD = "Pattu";
 
+/* PHOTOS (HER FIRST) */
 const photos = [
+  "her.jpg",   // FIRST IMAGE
   "img1.jpg","img2.jpg","img3.jpg","img4.jpg","img5.jpg",
   "img6.jpg","img7.jpg","img8.jpg","img9.jpg","img10.jpg"
 ];
@@ -202,7 +208,6 @@ const songs = ["song1.mp3","song2.mp3"];
 
 const loveLetter =
 `My Love 💌,
-
 This smile,
 this face,
 this heart —
@@ -214,9 +219,12 @@ feels like home.
 Nammaloda struggle elame sikram solve aagi
 na unna sikram marraige paniduven pondatii
 I love youuuu so much ❤️🫂🫶🏻
-
+Forever yours
+You are my first thought,
+my favorite sight,
+and my forever feeling.
 Happy Birthday ❤️ Pattu
-Forever yours.`;
+Always yours.`;
 
 const audios = [
   document.getElementById("audio1"),
@@ -239,22 +247,25 @@ function login(){
   }
 }
 
-/* START */
+/* START SURPRISE */
 function startSurprise(){
   startBtn.style.display="none";
+
   photoIndex = 0;
-  showPhoto();
+  showPhoto(); // SHOW HER PHOTO FIRST
+
   playSong();
 
   slideTimer = setInterval(showPhoto,3000);
   setInterval(createHeart,600);
+
   setTimeout(showLetter, photos.length*3000);
 }
 
-/* SLIDES */
+/* SHOW PHOTOS */
 function showPhoto(){
   photo.src = photos[photoIndex];
-  photoIndex = (photoIndex+1)%photos.length;
+  photoIndex = (photoIndex + 1) % photos.length;
 }
 
 /* MUSIC */
@@ -285,15 +296,11 @@ function createHeart(){
   setTimeout(()=>h.remove(),6000);
 }
 
-/* LETTER */
+/* LOVE LETTER */
 function showLetter(){
   clearInterval(slideTimer);
   surprise.style.display="none";
   letter.style.display="flex";
-  typeLetter();
-}
-
-function typeLetter(){
   let i=0;
   letterText.innerHTML="";
   const t=setInterval(()=>{
